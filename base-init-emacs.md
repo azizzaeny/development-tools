@@ -16,38 +16,27 @@ in order to re-generate and create initial of it. first we clone this document t
 ```elisp file-out=~/.emacs.d/init.el tangle=false
 
 (defvar md-block-header "^```elisp")
-(defvar md-block-end "^```")
+(defvar md-block-end "^```$")
 
-(defun search-code-block (file-paths)
-  (let ((result (list)))
-	(when (file-exists-p file-paths)
-	  (with-temp-buffer
-		(insert-file-contents file-paths)
-		(goto-char (point-min))
-		(while (not (eobp))
-		  (forward-line 1)
-		  (re-search-forward md-block-header (point-max) t)
-		  (let (code-s code-e fout clip-str)
-			(setq code-s (progn (beginning-of-line) (forward-line 1) (point)))			
-			(setq code-e (match-beginning 0))
-			(setq clip-str (buffer-substring-no-properties code-s code-e))
-			(add-to-list 'result (list (cons 'point-start code-s)
-									   (cons 'point-end code-e)
-									   (cons 'clip-str clip-str)))
-			)
-		  )
-		)
-	  )
-	result))
+(defun load-markdown (file-paths &optional evaluator)
+  (interactive)
+  (when (file-exists-p file-paths)
+	(with-temp-buffer
+	  (insert-file-contents file-paths)
+	  (goto-char (point-min))
+	  (while (not (eobp))
+		(forward-line 1)
+		(let ((starting-pos (progn
+							  (re-search-forward md-block-header (point-max) t)
+							  (match-end 0)))
+			  (end-pos (progn
+						 (re-search-forward md-block-end (point-max) t)
+						 (match-beginning 0))))
+		  (if evaluator
+			  (funcall evaluator starting-pos end-pos)
+			(eval-region starting-pos end-pos)))))))
 
-;; (search-code-block "~/.emacs.d/readme.md")
-
-(defun eval-all-region-point (list-code-blocks))
-
-(defun load-markdown (file-paths)
-  (mapcar 'eval-all-region-point (search-code-block (expand-file-name file-paths))
-
-
+;;(load-markdown "~/Desktop/file.md")
 ```
 
 
