@@ -1,3 +1,15 @@
+extended version of base-init emacs but we added meta file reading where we can figure out what to do with each code blocks
+
+
+;; todo: meta reading when evaling is off.
+(defvar meta-file-out "file-out=\\([^\s+]+\\)")
+(defvar meta-eval "eval=\\([^\s+]+\\)")
+
+(defun search-meta-on-block (list-code-blocks))
+;; (save-excursion (re-search-forward meta-file-out (point-max) t)
+;; 				(setq fout (match-string 1)))
+;; (save-excursion (re-search-forward meta-eval (point-max) t)
+;; (re-search-forward md-block-end (point-max) t)
 
 **load and Tangle Snippet**
 

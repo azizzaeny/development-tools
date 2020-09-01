@@ -1,7 +1,8 @@
 
-a collection of set of work on Development-tools. emphasizing an effort how development experiences should be (just, personal taste experience). 
+A collection of set of work on Development-tools. emphasizing an effort how development experiences should be 
 
-(not intended to be general purpose of use, this is just me trying to fixing my own world of dev problem)
+(just, personal taste experience of dotfiles). 
+(not intended to be general purpose of use, just old dude trying to fix his own world)
 
 1. searching markdown code block on the temporary buffer. 
 2. load markdown and evaluate all the codes inside markdown block.
