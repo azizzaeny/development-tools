@@ -1,7 +1,7 @@
 
 A collection of set of work on Development-tools. emphasizing an effort how development experiences should be 
 
-(just, personal taste experience of dotfiles). 
+(personal taste experience of dotfiles). 
 (not intended to be general purpose of use, just old dude trying to fix his own world)
 
 1. searching markdown code block on the temporary buffer. 
