@@ -60,6 +60,7 @@ this is long story problem that the partial solutions is actually out there and 
   (interactive)
   (send-to-repl (buffer-substring-no-properties (point-min) (point-max))))
 
+
 (defun send-region ()
   (interactive)
   (save-excursion
@@ -69,7 +70,15 @@ this is long story problem that the partial solutions is actually out there and 
 	(setq mark-active nil)))
 
 (defun send-js ())
-(defun send-lisp ())
+
+(defun send-lisp ()
+  (interactive)
+  (set-mark (line-beginning-position))
+  (forward-sexp)
+  (send-to-repl (buffer-substring-no-properties (point) (mark)))
+  (setq mark-active nil)
+  (forward-sexp))
+
 (defun send-python ())
 (defun send-markdown-block ())
 (defun send-clojurev ())
