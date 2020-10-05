@@ -35,7 +35,7 @@ in order to re-generate and create initial of it. first we clone this document t
 			(eval-region starting-pos end-pos)))))))
 
 (defvar md-base-init "~/.emacs.d/base-init-emacs.md")
-
+;; todo : fix load all markdown in the directory
 (load-markdown md-base-init)
 
 (custom-set-variables
@@ -184,6 +184,15 @@ bellow is the basic emacs setups.
 (setq scroll-conservatively 10000)
 (setq scroll-preserve-screen-position t)
 
+;; copy paste from and to x clipboard
+
+;; (defun copy-to-clipboardx (&str)
+;;   (interactive)
+;;   (shell-command-to-string "xclip -selection clipboard"))
+
+
+;; (setq interprogram-cut-function nil)
+
 ```
 
 
@@ -250,6 +259,8 @@ initialization third party package with el-get bundler
 
 (el-get-bundle typescript)
 (el-get-bundle tide)
+
+(el-get-bundle xclip)
 
 (el-get 'sync)
 
