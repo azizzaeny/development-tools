@@ -58,7 +58,13 @@ this is long story problem that the partial solutions is actually out there and 
 
 (defun send-buffer ())
 
-(defun send-region)
+(defun send-region ()
+  (interactive)
+  (save-excursion
+	(when (and transient-mark-mode mark-active)
+	  (send-to-repl (buffer-substring-no-properties (point) (mark)))
+	  )
+	(setq mark-active nil)))
 
 (defun send-js ())
 (defun send-lisp ())
@@ -66,6 +72,22 @@ this is long story problem that the partial solutions is actually out there and 
 (defun send-markdown-block ())
 (defun send-clojurev ())
 
+```
 
+```elisp
 
+(custom-key
+  "e" 'send-paragraph
+  "l" 'send-line
+  "r" 'send-region)
+
+```
+
+fix tabs temporary 
+
+```emacs-lisp
+(setq web-mode-markup-indent-offset 2)
+_(web-mode-code-indent-offset 2)
+(setq indent-tabs-mode nil
+    js-indent-level 2)
 ```
