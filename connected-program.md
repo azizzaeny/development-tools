@@ -56,7 +56,9 @@ this is long story problem that the partial solutions is actually out there and 
 	  (send-to-repl (buffer-substring-no-properties (point) init-p))
 	  )))
 
-(defun send-buffer ())
+(defun send-buffer ()
+  (interactive)
+  (send-to-repl (buffer-substring-no-properties (point-min) (point-max))))
 
 (defun send-region ()
   (interactive)
