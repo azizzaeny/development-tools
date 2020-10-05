@@ -99,6 +99,7 @@ To generate init.el we would use this base init emacs as inital starting pos. ge
 (defvar init-el-location  "~/.emacs.d/init.el")
 
 (defun generate-init-el ()
+  (interactive)
   (let ((source (search-first-emacs-lisp))
 		(location init-el-location))
 	(write-to-file location source)))
@@ -246,6 +247,9 @@ initialization third party package with el-get bundler
   :type github :pkgname "iqbalansari/restart-emacs")
 
 (el-get-bundle general)
+
+(el-get-bundle typescript)
+(el-get-bundle tide)
 
 (el-get 'sync)
 
@@ -410,6 +414,29 @@ initialization third party package with el-get bundler
 (require 'autopair)
 ;;(autopair-global-mode)
 
+;; tide
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  ;; company is an optional dependency. You have to
+  ;; install it separately via package-install
+  ;; `M-x package-install [ret] company`
+  (company-mode +1))
+
+
+;; aligns annotation to the right hand side
+(setq company-tooltip-align-annotations t)
+
+;; formats the buffer before saving
+(add-hook 'before-save-hook 'tide-format-before-save)
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
+
+;;(require 'ts-comint)
+;; run-ts
 
 ;; Custom Key Bindings Basic Editing/Searching
 
