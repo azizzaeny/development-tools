@@ -449,6 +449,11 @@ initialization third party package with el-get bundler
 ;;(require 'ts-comint)
 ;; run-ts
 
+;; xclip
+(require 'xclip)
+(turn-on-xclip)
+
+
 ;; Custom Key Bindings Basic Editing/Searching
 
 (defvar custom-bindings-map (make-keymap)
