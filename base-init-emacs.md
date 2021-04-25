@@ -260,8 +260,10 @@ initialization third party package with el-get bundler
 (el-get-bundle typescript)
 (el-get-bundle tide)
 
-(el-get-bundle xclip)
+(el-get-bundle php-mode)
 
+(el-get-bundle xclip)
+(el-get-bundle restclient)
 (el-get 'sync)
 
 (package-initialize)
@@ -305,6 +307,8 @@ initialization third party package with el-get bundler
 (with-eval-after-load 'poly-markdown
   (add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode)))
 
+;; restclient
+(require 'restclient)
 
 ;; js2-mode
 
@@ -443,8 +447,8 @@ initialization third party package with el-get bundler
 (setq company-tooltip-align-annotations t)
 
 ;; formats the buffer before saving
-(add-hook 'before-save-hook 'tide-format-before-save)
-(add-hook 'typescript-mode-hook #'setup-tide-mode)
+;; (add-hook 'before-save-hook 'tide-format-before-save)
+;; (add-hook 'typescript-mode-hook #'setup-tide-mode)
 
 ;;(require 'ts-comint)
 ;; run-ts
@@ -527,5 +531,15 @@ initialization third party package with el-get bundler
 ;;   "sy" 'emacs/sync-dotfile
 ;;   "rl" 'emacs/reload-markdown-init
 ;;   "rs" 'restart-emacs)
+
+;;(setq typescript-indent-level
+;;	  (or (plist-get (tide-tsfmt-options) ':indentSize) 2))
+
+(setq web-mode-markup-indent-offset 2)
+
+(setq indent-tabs-mode nil
+    js-indent-level 2)
+
+(setq typescript-indent-level 2)
 
 ```

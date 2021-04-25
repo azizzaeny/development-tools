@@ -25,7 +25,7 @@ this is long story problem that the partial solutions is actually out there and 
 (defun send-to-repl (input-str &optional repl-name init-script)
   (interactive)
   (let ((current-window (selected-window)))
-	(start-repl repl-name init-script) 
+	;; (start-repl repl-name init-script) 
 	(switch-to-buffer-other-window active-repl)
 	(goto-char (point-max))
 	(insert input-str)
@@ -83,22 +83,50 @@ this is long story problem that the partial solutions is actually out there and 
 (defun send-markdown-block ())
 (defun send-clojurev ())
 
+
+(defun copy-connectedp-to-emacs ()
+  (interactive)
+  (save-current-buffer)
+  (unless (equal (buffer-name) "connected-program.md")
+	(copy-file (buffer-file-name) (expand-file-name "~/.emacs.d/") t)))
+
+;;(copy-connectedp-to-emacs)
+;; (load-markdown "~/.emacs.d/connected-program.md")
 ```
+
+Tangle markdown block out
+
+```elisp 
+;; note: required base-init-emacs functions.
+
+(defvar md-file-ref ":file=\\([^\s+]+\\)")
+
+(defun tangle-current-block ()
+  (interactive)
+  (save-excursion
+    (let ((starting-pos (progn (re-search-backward "^```" (point-min) t) (match-end 0)))    
+          (end-pos (progn (re-search-forward md-block-end (point-max) t) (match-beginning 0))))
+      (let ((file-ref (or (progn (re-search-backward md-file-ref starting-pos t) (match-string 1)) nil))
+            (start-content (progn (goto-char starting-pos) (beginning-of-line) (forward-line 1) (point))))
+        (when file-ref
+          (write-to-file file-ref (buffer-substring-no-properties start-content end-pos)))
+        ))))
+
+
+(defun tangle-buffer ())
+(defun tangle-current-buffer ())
+
+```
+
+Hotkey - bind
 
 ```elisp
 
 (custom-key
   "e" 'send-paragraph
   "l" 'send-line
-  "r" 'send-region)
+  "r" 'send-region
+  "b" 'send-buffer
+  "t" 'tangle-current-block)
 
-```
-
-fix tabs temporary 
-
-```emacs-lisp
-(setq web-mode-markup-indent-offset 2)
-_(web-mode-code-indent-offset 2)
-(setq indent-tabs-mode nil
-    js-indent-level 2)
 ```
